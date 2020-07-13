@@ -1,9 +1,13 @@
 import 'package:ChatApp/services/auth.dart';
+import 'package:ChatApp/services/database.dart';
 import 'package:ChatApp/views/chatRoomsScreen.dart';
 import 'package:ChatApp/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
+  final Function toggle;
+  SignUp(this.toggle);
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -12,6 +16,7 @@ class _SignUpState extends State<SignUp> {
   bool isLoading = false;
 
   AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
 
   TextEditingController userName = new TextEditingController();
   TextEditingController mail = new TextEditingController();
@@ -27,6 +32,13 @@ class _SignUpState extends State<SignUp> {
       authMethods
           .signUpWithEmailAndPassword(mail.text, passd.text)
           .then((value) {
+        Map<String, String> userInfoMap = {
+          "name": userName.text,
+          "email": mail.text
+        };
+
+        databaseMethods.uploadUserInfo(userInfoMap);
+
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -141,11 +153,14 @@ class _SignUpState extends State<SignUp> {
                           "Already have account? ",
                           style: TextStyle(fontSize: 16),
                         ),
-                        Text(
-                          "SignIn now",
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              fontSize: 16),
+                        GestureDetector(
+                          onTap: () => widget.toggle(),
+                          child: Text(
+                            "SignIn now",
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 16),
+                          ),
                         )
                       ],
                     ),
