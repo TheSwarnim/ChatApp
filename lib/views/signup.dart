@@ -1,3 +1,4 @@
+import 'package:ChatApp/helper/helperfunctions.dart';
 import 'package:ChatApp/services/auth.dart';
 import 'package:ChatApp/services/database.dart';
 import 'package:ChatApp/views/chatRoomsScreen.dart';
@@ -17,6 +18,7 @@ class _SignUpState extends State<SignUp> {
 
   AuthMethods authMethods = new AuthMethods();
   DatabaseMethods databaseMethods = new DatabaseMethods();
+  HelperFunctions helperFunctions = new HelperFunctions();
 
   TextEditingController userName = new TextEditingController();
   TextEditingController mail = new TextEditingController();
@@ -29,6 +31,7 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         isLoading = true;
       });
+
       authMethods
           .signUpWithEmailAndPassword(mail.text, passd.text)
           .then((value) {
@@ -37,7 +40,12 @@ class _SignUpState extends State<SignUp> {
           "email": mail.text
         };
 
+        HelperFunctions.saveUserEmailSharedPreference(mail.text);
+        HelperFunctions.saveUserNameSharedPreference(userName.text);
+
         databaseMethods.uploadUserInfo(userInfoMap);
+
+        HelperFunctions.saveUserLoggedInSharedPreference(true);
 
         Navigator.pushReplacement(
             context,

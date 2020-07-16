@@ -20,6 +20,8 @@ class _SearchScreenState extends State<SearchScreen> {
         .then((val) => setState(() => searchSnapshot = val));
   }
 
+  createChatroomAndStartConsversation(String userName) {databaseMethods.createChatRoom(chatRoomId, chatRoomMap)}
+
   Widget searchList() {
     return searchSnapshot != null
         ? ListView.builder(
@@ -121,8 +123,9 @@ class SearchTile extends StatelessWidget {
             ],
           ),
           Spacer(),
-          GestureDetector(onTap: () => ,
-                      child: Container(
+          GestureDetector(
+            onTap: () => {},
+            child: Container(
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(13)),
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
