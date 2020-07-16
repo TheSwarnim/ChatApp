@@ -1,4 +1,5 @@
 import 'package:ChatApp/helper/constants.dart';
+import 'package:ChatApp/helper/helperfunctions.dart';
 import 'package:ChatApp/services/database.dart';
 import 'package:ChatApp/widgets/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,11 +12,13 @@ class SearchScreen extends StatefulWidget {
   _SearchScreenState createState() => _SearchScreenState();
 }
 
-QuerySnapshot searchSnapshot;
+String _myName;
 
 class _SearchScreenState extends State<SearchScreen> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   TextEditingController searchText = new TextEditingController();
+
+  QuerySnapshot searchSnapshot;
 
   initiateSearch() {
     databaseMethods
@@ -47,22 +50,23 @@ class _SearchScreenState extends State<SearchScreen> {
       padding: EdgeInsets.all(24),
       child: Row(
         children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                userName,
-                style: TextStyle(fontSize: 16),
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                userEmail,
-                style: TextStyle(fontSize: 16),
-                overflow: TextOverflow.ellipsis,
-              )
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  userName,
+                  style: TextStyle(fontSize: 16),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  userEmail,
+                  style: TextStyle(fontSize: 16),
+                  overflow: TextOverflow.ellipsis,
+                )
+              ],
+            ),
           ),
-          Spacer(),
           GestureDetector(
             onTap: () => createChatRoomAndStartConversation(userName),
             child: Container(
@@ -97,9 +101,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    initiateSearch();
     super.initState();
   }
+
+  // getUserInfo() async {
+  //   _myName = await HelperFunctions.getUserNameSharedPreference();
+  //   setState(() => {});
+  // }
 
   @override
   Widget build(BuildContext context) {
