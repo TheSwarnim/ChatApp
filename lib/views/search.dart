@@ -23,11 +23,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
   createChatRoomAndStartConversation(String userName)
   {
+    String chatRoomId = getChatRoomId(userName, Constants.myName);
+
     List<String> users= [userName,Constants.myName];
     Map<String,dynamic> chatRoomMap={
       "users":users,
-      
-    }
+      "chatroomId":chatRoomId
+    };
+
+    databaseMethods.
   }
 
   Widget searchList() {
@@ -147,3 +151,12 @@ class SearchTile extends StatelessWidget {
     );
   }
 }
+
+
+  getChatRoomId(String a, String b) {
+    if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+      return "$b\_$a";
+    } else {
+      return "$a\_$b";
+    }
+  }
