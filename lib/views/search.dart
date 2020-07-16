@@ -1,3 +1,4 @@
+import 'package:ChatApp/helper/constants.dart';
 import 'package:ChatApp/services/database.dart';
 import 'package:ChatApp/widgets/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,6 +19,15 @@ class _SearchScreenState extends State<SearchScreen> {
     databaseMethods
         .getUserByUserName(searchText.text)
         .then((val) => setState(() => searchSnapshot = val));
+  }
+
+  createChatRoomAndStartConversation(String userName)
+  {
+    List<String> users= [userName,Constants.myName];
+    Map<String,dynamic> chatRoomMap={
+      "users":users,
+      
+    }
   }
 
   Widget searchList() {
