@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../services/auth.dart';
-import '../services/auth.dart';
-import '../services/database.dart';
 import '../services/database.dart';
 import 'chatRoomsScreen.dart';
 
@@ -26,41 +24,37 @@ class _SignInState extends State<SignIn> {
 
   final formKey = GlobalKey<FormState>();
 
-  bool isLoading=false;
+  bool isLoading = false;
 
-  signIn(){
+  signMeIn() {
     HelperFunctions.saveUserEmailSharedPreference(mail.text);
-    
-    if(formKey.currentState.validate()){
+
+    if (formKey.currentState.validate()) {
       setState(() {
-      isLoading=true;
-    });
-    
-    QuerySnapshot userInfoSnapshot;
-    databaseMethods.getUserByUserEmail(mail.text)
-    .then((val){
-      userInfoSnapshot=val;
-      HelperFunctions.saveUserNameSharedPreference(userInfoSnapshot.documents[0].data["name"]);
-    });
-    
-    authMethods.signInWithEmailAndPassword(mail.text, passd.text)
-    .then((value) {
-      if(value!=null){
+        isLoading = true;
+      });
 
-        HelperFunctions.saveUserLoggedInSharedPreference(true);
+      QuerySnapshot userInfoSnapshot;
+      databaseMethods.getUserByUserEmail(mail.text).then((val) {
+        userInfoSnapshot = val;
+        HelperFunctions.saveUserNameSharedPreference(
+            userInfoSnapshot.documents[0].data["name"]);
+      });
 
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatRoom(),
-            ));
-      }
+      authMethods
+          .signInWithEmailAndPassword(mail.text, passd.text)
+          .then((value) {
+        if (value != null) {
+          HelperFunctions.saveUserLoggedInSharedPreference(true);
 
-    });
-    
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatRoom(),
+              ));
+        }
+      });
     }
-
-
   }
 
   @override
@@ -109,8 +103,9 @@ class _SignInState extends State<SignIn> {
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-              GestureDetector(onTap: () => ,
-                              child: Container(
+              GestureDetector(
+                onTap: () => signMeIn(),
+                child: Container(
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(vertical: 20),
