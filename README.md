@@ -3,8 +3,8 @@
 A cross platform ChatApp made with flutter, uses Firebase as hosting and realtime database.
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
+This project is a subpart of CLiK App, a made in India and Atmanirbhar Bharat initiative
+by government of India.
 
 A few resources to get you started if you want to get familiar with Flutter :
 
