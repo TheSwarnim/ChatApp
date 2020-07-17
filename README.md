@@ -1,6 +1,6 @@
 # ChatApp
 
-A cross platform ChatApp made with flutte, uses Firebase as hosting and realtime database.
+A cross platform ChatApp made with flutter, uses Firebase as hosting and realtime database.
 
 ## Getting Started
 
