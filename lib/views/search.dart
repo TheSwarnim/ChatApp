@@ -36,8 +36,10 @@ class _SearchScreenState extends State<SearchScreen> {
       };
 
       databaseMethods.createChatRoom(chatRoomId, chatRoomMap);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ConversationScreen()));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConversationScreen(chatRoomId)));
     } else {
       print("You cann't send request to yourself");
     }
@@ -90,8 +92,8 @@ class _SearchScreenState extends State<SearchScreen> {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return SearchTile(
-                searchSnapshot.documents[index].data["email"],
                 searchSnapshot.documents[index].data["name"],
+                searchSnapshot.documents[index].data["email"],
               );
             },
           )
