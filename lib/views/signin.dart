@@ -27,18 +27,20 @@ class _SignInState extends State<SignIn> {
   bool isLoading = false;
 
   signMeIn() {
-    HelperFunctions.saveUserEmailSharedPreference(mail.text);
-
     if (formKey.currentState.validate()) {
-      setState(() {
-        isLoading = true;
-      });
+      HelperFunctions.saveUserEmailSharedPreference(mail.text);
 
       QuerySnapshot userInfoSnapshot;
       databaseMethods.getUserByUserEmail(mail.text).then((val) {
         userInfoSnapshot = val;
         HelperFunctions.saveUserNameSharedPreference(
             userInfoSnapshot.documents[0].data["name"]);
+        print(
+            "${userInfoSnapshot.documents[0].data["name"]} snapshot data check it out");
+      });
+
+      setState(() {
+        isLoading = true;
       });
 
       authMethods

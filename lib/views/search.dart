@@ -1,5 +1,4 @@
 import 'package:ChatApp/helper/constants.dart';
-import 'package:ChatApp/helper/helperfunctions.dart';
 import 'package:ChatApp/services/database.dart';
 import 'package:ChatApp/widgets/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +11,7 @@ class SearchScreen extends StatefulWidget {
   _SearchScreenState createState() => _SearchScreenState();
 }
 
-String _myName;
+// String _myName;
 
 class _SearchScreenState extends State<SearchScreen> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
@@ -44,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
   }
 
-  Widget SearchTile(final String userName, final String userEmail) {
+  Widget SearchTile(String userName, String userEmail) {
     return Container(
       color: Colors.grey,
       padding: EdgeInsets.all(24),
@@ -97,6 +96,14 @@ class _SearchScreenState extends State<SearchScreen> {
             },
           )
         : Container();
+  }
+
+  getChatRoomId(String a, String b) {
+    if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+      return "$b\_$a";
+    } else {
+      return "$a\_$b";
+    }
   }
 
   @override
@@ -157,13 +164,5 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
     );
-  }
-}
-
-getChatRoomId(String a, String b) {
-  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
-    return "$b\_$a";
-  } else {
-    return "$a\_$b";
   }
 }
